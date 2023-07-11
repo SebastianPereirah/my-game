@@ -24,6 +24,9 @@ class ViewController: UIViewController {
 
     // Создаем экземпляр класса UIImageView для кота
     let imageCat = UIImageView()
+    
+    //Создаем переключатель для кота
+    let catSwitch = UISwitch()
 
     // кнопки 1, 2, 3 и сброс счета
     let button1 = RegularButton()
@@ -50,6 +53,13 @@ class ViewController: UIViewController {
         labelLoseCount.text = "Всего поражений: "
         labelLoseCount.frame = CGRect(x: centerX - 180, y: centerY - 250, width: 250, height: 100) // левый край лейбла Поражений относительно центра вью
         view.addSubview(labelLoseCount)
+        
+        // MARK: - свич кота
+        // устанавливаем переключатель кота
+        catSwitch.center = CGPoint(x: centerX + 150, y: centerY - 300) // расположение свича относительно центра вью
+        view.addSubview(catSwitch)
+        catSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged) //вк выкл отображение кота
+        
 
         // MARK: - кот
 
@@ -57,7 +67,7 @@ class ViewController: UIViewController {
         imageCat.frame.size.width = 200 // ширина кота
         imageCat.frame.size.height = 220 // высота кота
 
-        imageCat.center = CGPoint(x: centerX - 10, y: centerY - 70) // расположение центра кота jnyjcbntkmyj wtynhf dm.
+        imageCat.center = CGPoint(x: centerX - 10, y: centerY - 70) // расположение центра кота относительно центра вью
 
         // Устанавливаем изображение
         imageCat.image = UIImage(named: "cat.png")
@@ -153,5 +163,14 @@ class ViewController: UIViewController {
         // приводим лейблы счетчиков в исходное положение
         labelWinCount.text = "Всего побед: "
         labelLoseCount.text = "Всего поражений: "
+    }
+    
+    // свич включения и выключения отображения кота на вью
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            imageCat.isHidden = true // если переключатель включен - кот исчезает
+        } else {
+            imageCat.isHidden = false // если переключатель выключен - кот отображается
+        }
     }
 }
